@@ -1,6 +1,8 @@
 /**
  * Created by nick on 2017/7/30.
+ * 存储在内存中
  */
+
 
 let USER_ID_INIT = 10000;
 users = [];

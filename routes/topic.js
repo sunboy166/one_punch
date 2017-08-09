@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
 // service是多种服务联合时用到
-const User = require('../models/in_memo/users');
-const Topic = require('../models/in_memo/topic');
+const User = require('../models/mongo/users');
+const Topic = require('../models/mongo/topic');
 
 /*实现基本的增改查功能*/
 // localhost:3000/topic
@@ -23,11 +23,10 @@ router.route('/')
         });
         // res.send('trying to get topic list');
     })
-    .post((req, res) => {
+    .post((req, res, next) => {
         (async () => {
             // 获取creator
             const user = await User.getUserById(req.body.userId);
-            console.log(user);
             let topic = await Topic.createANewTopic({
                 creator: user,
                 title: req.body.title,
@@ -51,7 +50,7 @@ router.route('/')
 router.route('/:id')
     .get((req, res, next) => {
         (async () => {
-            let topic = await Topic.getTopicById(Number(req.params.id))
+            let topic = await Topic.getTopicById(req.params.id)
             return {
                 code: 0,
                 topics: topic,
@@ -66,9 +65,8 @@ router.route('/:id')
     })
     .patch((req, res, next) => {
         (async () => {
-            let topic = await Topic.updateTopicById(Number(req.params.id), {
-                name: req.body.name,
-                age: req.body.age
+            let topic = await Topic.updateTopicById(req.params.id, {
+                content: req.body.content
             });
             return {
                 code: 0,
