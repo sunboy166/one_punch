@@ -3,6 +3,8 @@ const router = express.Router();
 // service是多种服务联合时用到
 const User = require('../models/mongo/users');
 const Topic = require('../models/mongo/topic');
+const auth = require('../middlewares/auth_user');
+
 
 /*实现基本的增改查功能*/
 // localhost:3000/topic
@@ -23,7 +25,7 @@ router.route('/')
         });
         // res.send('trying to get topic list');
     })
-    .post((req, res, next) => {
+    .post(auth(), (req, res, next) => {
         (async () => {
             // 获取creator
             const user = await User.getUserById(req.body.userId);
@@ -63,7 +65,7 @@ router.route('/:id')
                 next(e);
             })
     })
-    .patch((req, res, next) => {
+    .patch(auth(), (req, res, next) => {
         (async () => {
             let topic = await Topic.updateTopicById(req.params.id, {
                 content: req.body.content
@@ -82,7 +84,7 @@ router.route('/:id')
     });
 
 router.route('/:id/reply')
-    .post((req, res, next) => {
+    .post(auth(), (req, res, next) => {
         (async () => {
             // 获取creator
             const user = await User.getUserById(req.body.userId);

@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 // service是多种服务联合时用到
-// 替换为mongo
+// 替换为mongo的user
 const User = require('../models/mongo/users');
+const auth = require('../middlewares/auth_user');
 
 /*实现基本的增改查功能*/
 // localhost:3000/user
@@ -65,11 +66,11 @@ router.route('/:id')
                 next(e);
             })
     })
-    .patch((req, res, next) => {
+    .patch(auth(), (req, res, next) => {
         (async () => {
             let update = {};
-            if(req.body.name) update.name = req.body.name;
-            if(req.body.age) update.age = req.body.age;
+            if (req.body.name) update.name = req.body.name;
+            if (req.body.age) update.age = req.body.age;
             let user = await User.updateUserById(req.params.id, update);
             return {
                 code: 0,
@@ -83,5 +84,6 @@ router.route('/:id')
                 next(e);
             })
     });
+
 
 module.exports = router;
