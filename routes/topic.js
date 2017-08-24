@@ -107,4 +107,29 @@ router.route('/:id/reply')
         // res.send('trying to create a topic')
     });
 
+router.route('/reply/:replyId')
+    .post(auth(), (req, res, next) => {
+        (async ()=> {
+            let reply = await Topic.changeReplyLikes({
+                replyId: req.params.replyId,
+                liked:req.body.liked
+            });
+            console.log({
+                replyId: req.params.replyId,
+                liked:req.body.liked
+            })
+            console.log(reply)
+            return {
+                code:0,
+                reply:reply
+            }
+        })()
+        .then(r => {
+            res.json(r)
+        })
+        .catch(e => {
+            next(e);
+        })
+    });
+
 module.exports = router;

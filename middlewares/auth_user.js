@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken');
 const JWT_SECRET = require('../cipher').JWT_SECRET;
 
-
+//因为auth返回一个函数，所以写法上写auth()
 module.exports = function (options) {
     return function (req, res, next) {
         try {

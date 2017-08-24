@@ -24,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// 定义路由
 app.use('/', index);
 app.use('/user', users);
 app.use('/topic', topicRouter);

@@ -24,7 +24,7 @@ router.post('/login', (req, res, next) => {
 
         // 保证JWT对象没有被篡改过，签名保证内容不被篡改
         // 此处过期时间60s
-        const token = JWT.sign({_id: user._id, iat: Date.now(), expire: Date.now() + 60000}, JWT_SECRET);
+        const token = JWT.sign({_id: user._id, iat: Date.now(), expire: Date.now() + 600000}, JWT_SECRET);
 
         return {
             code: 0,

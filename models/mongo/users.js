@@ -83,7 +83,7 @@ async function getUserById(userId) {
     return await UserModel.findOne({_id: userId})
         .select(DEFAULT_PROJECTION)
         .catch(e => {
-            console.log(e)
+            console.log(e);
             throw new Error(`error getting user by id: ${userId}`);
         });
 }
