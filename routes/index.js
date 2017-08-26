@@ -11,7 +11,6 @@ router.get('/', function (req, res, next) {
 
 // 注册和登录放在这里，使用全局的中间件来做鉴权的事情
 // 注册，大小写是否敏感看系统，node对大小写敏感
-
 router.post('/signUp', (req, res, next) => {
 
 

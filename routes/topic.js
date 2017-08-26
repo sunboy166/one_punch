@@ -114,11 +114,6 @@ router.route('/reply/:replyId')
                 replyId: req.params.replyId,
                 liked:req.body.liked
             });
-            console.log({
-                replyId: req.params.replyId,
-                liked:req.body.liked
-            })
-            console.log(reply)
             return {
                 code:0,
                 reply:reply

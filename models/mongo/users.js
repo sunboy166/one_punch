@@ -17,7 +17,9 @@ const UserSchema = new Schema({
     name: {type: String, required: true},
     age: {type: Number, max: [90, 'Nobody over 90 could use postman']},
     phoneNumber: String, // 没有写成必须的，未来可能会支持三方登录
-    password: String
+    password: String,
+    avatar: String
+
 });
 
 // 索引的设置
@@ -32,7 +34,7 @@ const UserModel = mongoose.model('user', UserSchema);
 
 // 创建一个user
 async function createANewUser(params) {
-    const user = new UserModel({name: params.name, age: params.age,phoneNumber:params.phoneNumber});
+    const user = new UserModel({name: params.name, age: params.age, phoneNumber: params.phoneNumber});
 
     user.password = await pbkdf2Async(params.password, SALT, 512, 128, 'sha512')
         .then(r => r.toString())

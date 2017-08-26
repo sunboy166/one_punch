@@ -12,7 +12,7 @@ module.exports = function (options) {
                 next(new Error('No auth!'));
                 return;
             }
-            console.log(authList);
+            // console.log(authList);
             const token = authList[1];
 
             const obj = JWT.verify(token, JWT_SECRET);
@@ -20,7 +20,7 @@ module.exports = function (options) {
             if (!obj || !obj._id || !obj.expire) {
                 throw new Error('No auth!');
             }
-            console.log(Date.now() - obj.expire);
+            // console.log(Date.now() - obj.expire);
             // 检验是否过期
             if (Date.now() - obj.expire < 0) {
                 throw new Error('Token expired');
