@@ -22,7 +22,7 @@ module.exports = function (options) {
             }
             // console.log(Date.now() - obj.expire);
             // 检验是否过期
-            if (Date.now() - obj.expire < 0) {
+            if (Date.now() - obj.expire > 0) {
                 throw new Error('Token expired');
             }
             next();
